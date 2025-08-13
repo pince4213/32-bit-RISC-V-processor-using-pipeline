@@ -2,18 +2,18 @@
 
 ## Overview
 
-This project is a 32-bit RISC-V processor designed using Verilog. It’s a pipelined processor, which means it processes instructions in five steps (like an assembly line) to make it faster. The processor can run basic RISC-V instructions like addition, subtraction, shifting, branching, and memory operations. It’s built to handle instructions stored in a file called `instruction.mem` and includes features to avoid problems like data conflicts during execution.
+This project is a 32-bit RISC-V processor designed using Verilog. It is a pipelined processor, which means it processes instructions in five steps to make it faster. The processor can run basic RISC-V instructions like addition, subtraction, shifting, branching, and memory operations. It’s make to handle instructions stored in a file called `instruction.mem` and includes features to avoid problems like data conflicts during execution.
 
-The main file, `RISC32_bit.v`, connects smaller modules (like puzzle pieces) that handle different tasks, such as fetching instructions, decoding them, performing calculations, accessing memory, and writing results back to registers. This README explains how the processor works, how to simulate it, and what the provided instructions do, all in simple terms.
+The main file, `RISC32_bit.v`, connects smaller modules that handle different tasks, such as fetching instructions, decoding them, performing calculations, accessing memory, and writing results back to registers. This README explains how the processor works, how to simulate it, and what the provided instructions do, all in simple terms.
 
 ## What is a RISC-V Processor?
 
-RISC-V is a type of computer architecture that uses simple instructions to tell the processor what to do. Our processor is a 32-bit version, meaning it works with 32-bit numbers and instructions. It’s designed to:
+RISC-V is a type of computer architecture that uses simple instructions to tell the processor what to do. Our processor is a 32-bit version, meaning it works with 32-bit numbers and instructions. It is designed to:
 
 - Fetch instructions from memory.
 - Decode what each instruction means.
-- Execute calculations or decisions (like adding numbers or jumping to another instruction).
-- Access memory (to read or write data).
+- Execute calculations like adding numbers or jumping to other instruction.
+- Access memory to read or write data.
 - Save results back to registers (small storage units inside the processor).
 
 ## Processor Structure
@@ -30,7 +30,7 @@ The processor includes **hazard handling** to avoid mistakes when instructions d
 
 ### Key Components
 
-The processor is made up of several smaller modules (files RI1.v to RI23.v, except RI20.v, which isn’t used). Here’s what the main parts do:
+The processor is made up of several smaller modules. Here what the main parts:
 
 - **Address Generator (RI5)**: Updates the PC to point to the next instruction or a branch/jump address.
 - **Instruction Memory (RI10)**: Stores and provides instructions from `instruction.mem`.
@@ -38,12 +38,12 @@ The processor is made up of several smaller modules (files RI1.v to RI23.v, exce
 - **Instruction Fetch (RI9)**: Breaks down instructions into parts (like register numbers or immediate values).
 - **Register File (RI13)**: A storage bank with 32 registers (x0 to x31) to hold data.
 - **Sign Extend (RI23)**: Extends small numbers (immediates) to 32 bits.
-- **Controller (RI6)**: Decides what each instruction should do (e.g., add, store, branch).
-- **ALU (RI14)**: Performs math and logic (add, subtract, XOR, shift).
+- **Controller (RI6)**: Decides what each instruction should do like add, store, branch.
+- **ALU (RI14)**: Performs math and logic like add, subtract, XOR, shift.
 - **Data Memory (RI7)**: Stores and retrieves data during load (`lw`) or store (`sw`) instructions.
 - **Hazard Unit (RI8)**: Prevents errors by forwarding data or pausing the pipeline.
 - **Pipeline Registers (RI1 to RI4)**: Pass data between stages (Fetch to Decode, Decode to Execute, etc.).
-- **Multiplexers (RI15, RI16, RI21, RI22)**: Choose the right data (e.g., register value or immediate) for calculations or results.
+- **Multiplexers (RI15, RI16, RI21, RI22)**: Choose the right data (register value or immediate) for calculations or results.
 
 The `RISC32_bit.v` file connects all these parts to form the complete processor.
 
@@ -105,7 +105,7 @@ To see how the processor runs these instructions, you need to simulate it using 
 
 ### 1. Prepare Files
 
-- **Verilog Files**: Use `RISC32_bit.v` (main module) and submodules (RI1.v to RI23.v, except RI20.v).
+- **Verilog Files**: Use `RISC32_bit.v` (main module) and submodules (RI1.v to RI20.v).
 - **Instruction Memory**: Save the instructions in a file called `instruction.mem`:
 
   ```
@@ -268,17 +268,12 @@ After running the simulation for 500 ns:
 - **Simulation Time**: 500 ns covers the executed instructions. Increase if you want to test loops (e.g., `beq` instructions).
 - **Visualization**: To see a graph of signals like `PCF` or `checkx5`, check `simulation_output.txt` and share the data for a chart.
 
-### Troubleshooting
-
-- **Undefined Signals (**`X`**)**: Check if `instruction.mem` is in the right directory or if files are missing.
-- **Incorrect Register Values**: Hard-coded values in `Register_File` may interfere. Remove them if needed.
-- **Branch Issues**: The `bne` at PC=40 jumps to PC=60. Check `ZeroE` and `PCSrcE` in waveforms to confirm.
 
 ## Next Steps
 
-- Run the simulation and check `simulation_output.txt` or waveforms.
+- Run the simulation and check simulation waveforms.
 - If you see unexpected results, share the log file or waveform screenshots.
 - To test more instructions or loops, extend the simulation time or modify `instruction.mem`.
-- For a visual graph of signals (e.g., `PCF` over time), share simulation data, and I can create a chart.
+- For a visual graph of signals, share simulation data, and I can create a chart.
 
-This processor is a great way to learn about RISC-V and pipelined designs. Happy simulating
+This processor is a great way to learn about RISC-V and pipelined designs.
